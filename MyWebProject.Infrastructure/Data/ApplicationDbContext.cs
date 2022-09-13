@@ -11,6 +11,7 @@ namespace MyWebProject.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<Mobilephone> Mobilephones { get; set; }
