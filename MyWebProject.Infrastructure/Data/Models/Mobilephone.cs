@@ -5,10 +5,7 @@ using System.Drawing;
 
 public class Mobilephone:Product
 {
-    public Mobilephone()
-    {
-        MobileColors = new HashSet<MobileColor>();
-    }
+   
 
     [Key]
     public int Id { get; set; }
@@ -34,5 +31,5 @@ public class Mobilephone:Product
     [Required]
     public double Resolution { get; set; }
 
-    public virtual ICollection<MobileColor> MobileColors { get; set; } 
+    
 }
