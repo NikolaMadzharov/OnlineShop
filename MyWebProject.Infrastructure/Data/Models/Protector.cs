@@ -2,13 +2,17 @@
 
 using System.ComponentModel.DataAnnotations;
 
-public class Protector
+public class Protector:Product
 {
+    public Protector()
+    {
+        Protectors = new HashSet<ProtectorModel>();
+    }
+
     [Key]
     public int Id { get; set; }
 
-    [Required]
-    public string Model { get; set; }
+    public ICollection<ProtectorModel> Protectors { get; set; }
 
-   
+
 }

@@ -5,7 +5,10 @@ using System.Drawing;
 
 public class Mobilephone:Product
 {
-   
+    public Mobilephone()
+    {
+        PhoneModels = new HashSet<PhoneModel>();
+    }
 
     [Key]
     public int Id { get; set; }
@@ -13,8 +16,6 @@ public class Mobilephone:Product
     [Required]
     public double Size { get; set; }
 
-    [Required]
-    public double Model { get; set; }
 
     [Required]
     public double DisplaySizeInch { get; set; }
@@ -31,5 +32,6 @@ public class Mobilephone:Product
     [Required]
     public double Resolution { get; set; }
 
-    
+    public virtual ICollection<PhoneModel> PhoneModels { get; set; } 
+
 }

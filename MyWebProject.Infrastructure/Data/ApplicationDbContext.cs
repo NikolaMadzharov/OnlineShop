@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyWebProject.Infrastructure.Data
 {
     using MyWebProject.Infrastructure.Data.Models;
-    using System.Reflection.Emit;
+   
 
     public class ApplicationDbContext : IdentityDbContext
     {
@@ -17,9 +17,11 @@ namespace MyWebProject.Infrastructure.Data
         public DbSet<Mobilephone> Mobilephones { get; set; }
         public DbSet<Case> Cases { get; set; }
         public DbSet<Protector> Protectors { get; set; }
-  
+        public DbSet<CaseModel> CaseModels { get; set; }
+        public DbSet<ProtectorModel> ProtectedModels { get; set; }
+        public DbSet<PhoneModel> PhoneModels { get; set; }
 
-       
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

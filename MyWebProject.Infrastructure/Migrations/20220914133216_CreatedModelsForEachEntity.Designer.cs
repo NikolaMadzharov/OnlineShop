@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWebProject.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using MyWebProject.Infrastructure.Data;
 namespace MyWebProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220914133216_CreatedModelsForEachEntity")]
+    partial class CreatedModelsForEachEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,7 +273,7 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasIndex("CaseId");
 
-                    b.ToTable("CaseModels");
+                    b.ToTable("CaseModel");
                 });
 
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Mobilephone", b =>
@@ -340,7 +342,7 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasIndex("MobilephoneId");
 
-                    b.ToTable("PhoneModels");
+                    b.ToTable("PhoneModel");
                 });
 
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Protector", b =>
@@ -390,7 +392,7 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasIndex("ProtectorId");
 
-                    b.ToTable("ProtectedModels");
+                    b.ToTable("ProtectorModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
