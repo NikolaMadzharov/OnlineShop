@@ -9,6 +9,7 @@ public class CaseModel
     public int Id { get; set; }
 
     [Required]
+
     public string Model { get; set; }
 
     [ForeignKey(nameof(Case))]

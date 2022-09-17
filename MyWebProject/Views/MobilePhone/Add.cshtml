@@ -1,0 +1,55 @@
+﻿@model AddMobilePhoneFromModels
+@{
+    ViewData["Title"] = "Add Phone";
+}
+
+<div class="row">
+    <div class="col-6 offset-3">
+        <h2>Add Phone</h2>
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Write down the name of the phone.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Price" class="form-label">Price</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Write down the price of the phone.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplaySizeInch" class="form-label">DisplaySizeInch</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Write down the inches of the phone.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplaySizeCm" class="form-label">DisplaySizeCm</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Write down cantimeters of the phone.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="DisplayType" class="form-label">DisplayType</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Write down the type of the display.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Ram" class="form-label">Ram</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="How much ram does the phone have?">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Resolution" class="form-label">Resolution</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="What is the resolution of the phone?">
+        </div>
+        <div class="mb-3">
+            <label asp-for="CPU" class="form-label">Processor</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="What is the processor of the phone?">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Url" class="form-label">Url</label>
+            <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Insert a picture of the phone.">
+        </div>
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+        </div>
+        <input class="btn btn-primary " type="submit" value="Save" />
+    </div>
+  
+</div>
+
+
+

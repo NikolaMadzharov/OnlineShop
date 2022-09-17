@@ -3,7 +3,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
-public class Mobilephone:Product
+public class Mobilephone
 {
     public Mobilephone()
     {
@@ -14,7 +14,10 @@ public class Mobilephone:Product
     public int Id { get; set; }
 
     [Required]
-    public double Size { get; set; }
+    public string Name { get; set; }
+
+    [Required]
+    public decimal Price { get; set; }
 
 
     [Required]
@@ -31,6 +34,15 @@ public class Mobilephone:Product
 
     [Required]
     public double Resolution { get; set; }
+
+    [Required]
+    public string CPU { get; set; }
+
+    [Required]
+    public string Description { get; set; }
+
+    [Required]
+    public string Url { get; set; }
 
     public virtual ICollection<PhoneModel> PhoneModels { get; set; } 
 
