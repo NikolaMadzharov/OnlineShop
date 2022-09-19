@@ -5,10 +5,7 @@ using System.Drawing;
 
 public class Mobilephone
 {
-    public Mobilephone()
-    {
-        PhoneModels = new HashSet<PhoneModel>();
-    }
+    
 
     [Key]
     public int Id { get; set; }
@@ -33,7 +30,7 @@ public class Mobilephone
     public int Ram { get; set; }
 
     [Required]
-    public double Resolution { get; set; }
+    public string Resolution { get; set; }
 
     [Required]
     public string CPU { get; set; }
@@ -44,6 +41,7 @@ public class Mobilephone
     [Required]
     public string Url { get; set; }
 
-    public virtual ICollection<PhoneModel> PhoneModels { get; set; } 
+    public int MobilephoneModelId { get; set; }
 
+    public  PhoneModel PhoneModel { get; set; }
 }

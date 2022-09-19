@@ -49,47 +49,7 @@ namespace MyWebProject.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cases",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cases", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Mobilephones",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Size = table.Column<double>(type: "float", nullable: false),
-                    Model = table.Column<double>(type: "float", nullable: false),
-                    DisplaySizeInch = table.Column<double>(type: "float", nullable: false),
-                    DisplaySizeCm = table.Column<double>(type: "float", nullable: false),
-                    DisplayType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ram = table.Column<int>(type: "int", nullable: false),
-                    Resolution = table.Column<double>(type: "float", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mobilephones", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Protectors",
+                name: "CaseModels",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -98,7 +58,33 @@ namespace MyWebProject.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Protectors", x => x.Id);
+                    table.PrimaryKey("PK_CaseModels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PhoneModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PhoneModels", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ProtectedModels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Model = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProtectedModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,6 +193,81 @@ namespace MyWebProject.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Cases",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CaseModelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Cases_CaseModels_CaseModelId",
+                        column: x => x.CaseModelId,
+                        principalTable: "CaseModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mobilephones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DisplaySizeInch = table.Column<double>(type: "float", nullable: false),
+                    DisplaySizeCm = table.Column<double>(type: "float", nullable: false),
+                    DisplayType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ram = table.Column<int>(type: "int", nullable: false),
+                    Resolution = table.Column<double>(type: "float", nullable: false),
+                    CPU = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MobilephoneModelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mobilephones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Mobilephones_PhoneModels_MobilephoneModelId",
+                        column: x => x.MobilephoneModelId,
+                        principalTable: "PhoneModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Protectors",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProtectorModelId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Protectors", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Protectors_ProtectedModels_ProtectorModelId",
+                        column: x => x.ProtectorModelId,
+                        principalTable: "ProtectedModels",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -245,6 +306,21 @@ namespace MyWebProject.Infrastructure.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cases_CaseModelId",
+                table: "Cases",
+                column: "CaseModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Mobilephones_MobilephoneModelId",
+                table: "Mobilephones",
+                column: "MobilephoneModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Protectors_ProtectorModelId",
+                table: "Protectors",
+                column: "ProtectorModelId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -278,6 +354,15 @@ namespace MyWebProject.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CaseModels");
+
+            migrationBuilder.DropTable(
+                name: "PhoneModels");
+
+            migrationBuilder.DropTable(
+                name: "ProtectedModels");
         }
     }
 }

@@ -232,6 +232,9 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CaseModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -249,6 +252,8 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CaseModelId");
+
                     b.ToTable("Cases");
                 });
 
@@ -260,16 +265,11 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CaseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CaseId");
 
                     b.ToTable("CaseModels");
                 });
@@ -300,6 +300,9 @@ namespace MyWebProject.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MobilephoneModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -319,6 +322,8 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MobilephoneModelId");
+
                     b.ToTable("Mobilephones");
                 });
 
@@ -330,16 +335,11 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("MobilephoneId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Model")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MobilephoneId");
 
                     b.ToTable("PhoneModels");
                 });
@@ -363,11 +363,16 @@ namespace MyWebProject.Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("ProtectorModelId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProtectorModelId");
 
                     b.ToTable("Protectors");
                 });
@@ -384,12 +389,7 @@ namespace MyWebProject.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ProtectorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProtectorId");
 
                     b.ToTable("ProtectedModels");
                 });
@@ -445,50 +445,50 @@ namespace MyWebProject.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.CaseModel", b =>
-                {
-                    b.HasOne("MyWebProject.Infrastructure.Data.Models.Case", "Case")
-                        .WithMany("Cases")
-                        .HasForeignKey("CaseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Case");
-                });
-
-            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.PhoneModel", b =>
-                {
-                    b.HasOne("MyWebProject.Infrastructure.Data.Models.Mobilephone", "Mobilephone")
-                        .WithMany("PhoneModels")
-                        .HasForeignKey("MobilephoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Mobilephone");
-                });
-
-            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.ProtectorModel", b =>
-                {
-                    b.HasOne("MyWebProject.Infrastructure.Data.Models.Protector", "Protector")
-                        .WithMany("Protectors")
-                        .HasForeignKey("ProtectorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Protector");
-                });
-
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Case", b =>
                 {
-                    b.Navigation("Cases");
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.CaseModel", "CaseModel")
+                        .WithMany("Cases")
+                        .HasForeignKey("CaseModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CaseModel");
                 });
 
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Mobilephone", b =>
                 {
-                    b.Navigation("PhoneModels");
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.PhoneModel", "PhoneModel")
+                        .WithMany("PhoneModels")
+                        .HasForeignKey("MobilephoneModelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("PhoneModel");
                 });
 
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Protector", b =>
+                {
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.ProtectorModel", "ProtectorModel")
+                        .WithMany("Protectors")
+                        .HasForeignKey("ProtectorModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProtectorModel");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.CaseModel", b =>
+                {
+                    b.Navigation("Cases");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.PhoneModel", b =>
+                {
+                    b.Navigation("PhoneModels");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.ProtectorModel", b =>
                 {
                     b.Navigation("Protectors");
                 });

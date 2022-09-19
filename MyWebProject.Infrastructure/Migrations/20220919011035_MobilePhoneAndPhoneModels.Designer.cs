@@ -12,14 +12,14 @@ using MyWebProject.Infrastructure.Data;
 namespace MyWebProject.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220913225243_initialsetup")]
-    partial class initialsetup
+    [Migration("20220919011035_MobilePhoneAndPhoneModels")]
+    partial class MobilePhoneAndPhoneModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -234,11 +234,10 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CaseModelId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Model")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -255,7 +254,26 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CaseModelId");
+
                     b.ToTable("Cases");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.CaseModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CaseModels");
                 });
 
             modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Mobilephone", b =>
@@ -265,6 +283,10 @@ namespace MyWebProject.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CPU")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -280,8 +302,8 @@ namespace MyWebProject.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Model")
-                        .HasColumnType("float");
+                    b.Property<int>("MobilephoneModelId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -296,19 +318,18 @@ namespace MyWebProject.Infrastructure.Migrations
                     b.Property<double>("Resolution")
                         .HasColumnType("float");
 
-                    b.Property<double>("Size")
-                        .HasColumnType("float");
-
                     b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MobilephoneModelId");
+
                     b.ToTable("Mobilephones");
                 });
 
-            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Protector", b =>
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.PhoneModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -322,7 +343,57 @@ namespace MyWebProject.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("PhoneModels");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Protector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProtectorModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProtectorModelId");
+
                     b.ToTable("Protectors");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.ProtectorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Model")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProtectedModels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -374,6 +445,54 @@ namespace MyWebProject.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Case", b =>
+                {
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.CaseModel", "CaseModel")
+                        .WithMany("Cases")
+                        .HasForeignKey("CaseModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CaseModel");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Mobilephone", b =>
+                {
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.PhoneModel", "PhoneModel")
+                        .WithMany("PhoneModels")
+                        .HasForeignKey("MobilephoneModelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("PhoneModel");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.Protector", b =>
+                {
+                    b.HasOne("MyWebProject.Infrastructure.Data.Models.ProtectorModel", "ProtectorModel")
+                        .WithMany("Protectors")
+                        .HasForeignKey("ProtectorModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProtectorModel");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.CaseModel", b =>
+                {
+                    b.Navigation("Cases");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.PhoneModel", b =>
+                {
+                    b.Navigation("PhoneModels");
+                });
+
+            modelBuilder.Entity("MyWebProject.Infrastructure.Data.Models.ProtectorModel", b =>
+                {
+                    b.Navigation("Protectors");
                 });
 #pragma warning restore 612, 618
         }

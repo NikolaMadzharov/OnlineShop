@@ -23,7 +23,14 @@ public class MobilePhoneController : Controller
     [HttpPost]
     public IActionResult Add(AddMobilePhoneFromModels phone)
     {
-        return View();
+        if (!ModelState.IsValid)
+        {
+            phone.MobilePhonesModels = this.GetPhoneModels();
+
+            return View(phone);
+        }
+
+        return this.RedirectToAction("Index", "Home");
     }
 
     public IEnumerable<MobilePhoneViewModel> GetPhoneModels() =>

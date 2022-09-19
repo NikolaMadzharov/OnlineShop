@@ -12,7 +12,5 @@ public class CaseModel
 
     public string Model { get; set; }
 
-    [ForeignKey(nameof(Case))]
-    public int CaseId { get; set; }
-    public Case Case { get; set; }
+    public IEnumerable<Case> Cases { get; set; } = new List<Case>();
 }

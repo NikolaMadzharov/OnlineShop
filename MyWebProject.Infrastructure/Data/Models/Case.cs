@@ -4,10 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 public class Case
 {
-    public Case()
-    {
-        Cases = new HashSet<CaseModel>();
-    }
 
     [Key]
     public int Id { get; set; }
@@ -23,8 +19,10 @@ public class Case
     [Required]
     public string Url { get; set; }
 
+    public int CaseModelId { get; set; }
 
-    public ICollection<CaseModel> Cases { get; set; }
+    public CaseModel CaseModel { get; set; }
+   
 
 
 

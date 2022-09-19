@@ -11,8 +11,6 @@ public class PhoneModel
     [Required]
     public string Model { get; set; }
 
-    [ForeignKey(nameof(Mobilephone))]
-    public int MobilephoneId { get; set; }
-    public virtual Mobilephone Mobilephone { get; set; }
+    public  IEnumerable<Mobilephone> PhoneModels { get; set; } = new List<Mobilephone>();
 
 } 

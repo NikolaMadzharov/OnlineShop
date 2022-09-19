@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyWebProject.Infrastructure.Data;
+using MyWebProject.Infrastructure;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,31 +16,39 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
+
+
 var app = builder.Build();
 
+app.PrepareDatabase();
+    
+    //app.ApplicationServices.GetService < ApplicationDbContext >
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-   
-    app.UseHsts();
-}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseMigrationsEndPoint();
+    }
+    else
+    {
+        app.UseExceptionHandler("/Home/Error");
 
-app.UseRouting();
+        app.UseHsts();
+    }
 
-app.UseAuthentication();
-app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
 
-app.Run();
+    app.UseRouting();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
+    app.MapRazorPages();
+
+
+    app.Run();
+
+

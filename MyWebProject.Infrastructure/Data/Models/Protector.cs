@@ -4,10 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 public class Protector
 {
-    public Protector()
-    {
-        Protectors = new HashSet<ProtectorModel>();
-    }
+   
 
     [Key]
     public int Id { get; set; }
@@ -23,8 +20,9 @@ public class Protector
     [Required]
     public string Url { get; set; }
 
+    public int ProtectorModelId { get; set; }
+    public ProtectorModel ProtectorModel { get; set; }
 
-    public ICollection<ProtectorModel> Protectors { get; set; }
 
 
 }

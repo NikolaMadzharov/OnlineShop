@@ -11,7 +11,5 @@ public class ProtectorModel
     [Required]
     public string Model { get; set; }
 
-    [ForeignKey(nameof(Protector))]
-    public int ProtectorId { get; set; }
-    public Protector Protector { get; set; }
+    public IEnumerable<Protector> Protectors { get; set; } = new List<Protector>();
 }
