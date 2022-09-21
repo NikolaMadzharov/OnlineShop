@@ -5,26 +5,38 @@ using MyWebProject.Models.MobilePhones;
 using static MyWebProject.Infrastructure.GlobalConstants.GlobalConstants;
 public class AddMobilePhoneFromModels
 {
+   
     [Required]
     [StringLength(MaxPhoneBrandName, MinimumLength = MinPhoneBrandName)]
     public string Brand { get; set; }
 
     [Required]
-    public decimal Price { get; set; }
+    [Range(MinPrice, MaxPrice)]
+    public decimal? Price { get; set; }
 
     [Required]
-    public double DisplaySizeInch { get; set; }
+    [Range(MinYear,MaxYear)]
+    public int? Year { get; set; }
 
     [Required]
-    public double DisplaySizeCm { get; set; }
+    public int? PicxelesOfTheCamera { get; set; }
+
+    [Required]
+    [Range(MinDisplaySize, MaxDisplaySize)]
+    public double? DisplaySizeInch { get; set; }
+
+    [Required]
+    [Range(MinDisplaySize, MaxDisplaySize)]
+    public double? DisplaySizeCm { get; set; }
    
     [Required]
-    [StringLength(MinDisplayType, MinimumLength = MinDisplayType)]
+    [StringLength(MaxDisplayType, MinimumLength = MinDisplayType)]
     public string DisplayType { get; set; }
     [Required]
- 
-    public int Ram { get; set; }
+    [Range(MinRam, MaxRam)]
+    public int? Ram { get; set; }
     [Required]
+    [StringLength(MaxResolution, MinimumLength = MinResolution)]
     public string Resolution { get; set; }
     [Required]
     [StringLength(MaxCPU, MinimumLength = MinCPU)]

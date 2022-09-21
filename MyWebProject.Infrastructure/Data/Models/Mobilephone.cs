@@ -1,6 +1,7 @@
 ﻿namespace MyWebProject.Infrastructure.Data.Models;
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 
 public class Mobilephone
@@ -16,6 +17,11 @@ public class Mobilephone
     [Required]
     public decimal Price { get; set; }
 
+    [Required]
+    public int Year { get; set; }
+
+    [Required]
+    public int PicxelesOfTheCamera { get; set; }
 
     [Required]
     public double DisplaySizeInch { get; set; }
@@ -42,6 +48,6 @@ public class Mobilephone
     public string Url { get; set; }
 
     public int MobilephoneModelId { get; set; }
-
-    public  PhoneModel PhoneModel { get; set; }
+   
+    public virtual PhoneModel PhoneModel { get; set; }
 }
